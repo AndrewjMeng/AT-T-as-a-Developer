@@ -23,12 +23,37 @@ const table_data = [ { first_name : 'Rose',
                      last_name  : 'Foreman',
                      home       : 'Gallifrey'} ];
 
-$( document ).ready(function() {
-  table_data.forEach( function(item){
-    if(!item.last_name) {
-      item.last_name = ""
-    }
-    $(`<tr><td>${item.first_name}</td><td>${item.last_name}</td><td>${item.home}</td></tr>`).appendTo("#table_body")
-  })
+const createTable = (addToElement) => {
+    $(`<table>
+          <thead>
+          <tr>
+             <th>First Name</th>
+             <th>Last Name</th>
+             <th>Home</th>
+          </tr>
+          </thead>
+          <tbody id="table_body">
+          
+          </tbody>
+        </table>`
+    ).appendTo(addToElement)
+    addRowsToTable(table_data);
+  }
 
+const addRowsToTable = (data) => {
+  data.forEach( function(item){
+    if(!item.last_name) {
+      item.last_name = "Unspecified"
+    }
+    $(`<tr>
+        <td>${item.first_name}</td>
+        <td>${item.last_name}</td>
+        <td>${item.home}</td>
+      </tr>`
+    ).appendTo("#table_body")
+  })
+}
+
+$( document ).ready(function() {
+  createTable(document.body);
 });
